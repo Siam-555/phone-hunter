@@ -1,14 +1,17 @@
 const cardsContainer = document.getElementById('phone-cards');
 
-async function loadData() {
-  const res = await fetch('https://openapi.programming-hero.com/api/phones?search=iphone');
-  const data = await res.json();
-  showCard(data);
+function loadData() {
+  const searchBox = document.getElementById('search-box');
+  searchBox.addEventListener('keyup', async () => {
+    cardsContainer.innerHTML = '';
+    const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchBox.value}`);
+    const data = await res.json();
+    showCard(data);
+  })
 }
 
 function showCard(data) {
-  console.log(data.data.forEach(phone => {
-    console.log(phone);
+  data.data.forEach(phone => {
     const card = document.createElement('div');
     card.classList = 'card rounded-xl bg-white shadow-xl mx-auto';
     card.innerHTML = `
@@ -23,7 +26,7 @@ function showCard(data) {
       </div>
     </div>`;
     cardsContainer.appendChild(card);
-  }));
+  });
 }
 
 loadData();
