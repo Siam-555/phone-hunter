@@ -1,4 +1,5 @@
 const cardsContainer = document.getElementById('phone-cards');
+const searchBtn = document.getElementById('search-btn');
 
 function loadData() {
   const searchBox = document.getElementById('search-box');
@@ -11,7 +12,15 @@ function loadData() {
 }
 
 function showCard(data) {
-  data.data.forEach(phone => {
+  console.log(data.data.slice(0, 3));
+  if (data.data.length > 9) {
+    searchBtn.classList.remove('hidden');
+  }
+  else {
+    searchBtn.classList.add('hidden')
+  }
+  // data.data.slice(0, 9);
+  data.data.slice(0, 9).forEach(phone => {
     const card = document.createElement('div');
     card.classList = 'card rounded-xl bg-white shadow-xl mx-auto';
     card.innerHTML = `
