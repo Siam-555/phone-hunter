@@ -11,18 +11,16 @@
 
 <body class="bg-gray-100 min-h-screen text-black">
 
-  <header></header>
   <main class="container mx-auto">
-
     <!-- Search Field here -->
     <input id="search-box" class="input relative left-1/2 -translate-x-1/2 w-1/2 text-center text-white bg-gray-600 input-bordered rounded-2xl my-4" placeholder="Search..." />
+    <span id="loading-spinner" class="loading loading-spinner absolute loading-lg top-1/2 -translate-y-1/2 hidden"></span>
 
     <div id="phone-cards" class="grid grid-cols-3 gap-4">
       <!-- Phone Data here -->
     </div>
-    <button id="search-btn" class="btn my-6 px-14 text-lg relative left-1/2 -translate-x-1/2 hidden btn-accent">Show more...</button>
+    <button id="show-more-btn" class="btn my-6 px-14 text-lg relative left-1/2 -translate-x-1/2 hidden btn-accent">Show more...</button>
   </main>
-  <footer></footer>
 
   <script src="js/script.js"></script>
 </body>
