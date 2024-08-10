@@ -7,16 +7,11 @@ function loadData() {
   searchBox.addEventListener('keyup', async () => {
     loadingSpinner(true);
     cardsContainer.innerHTML = '';
+    displayMoreBtn(false);
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchBox.value}`);
     const data = await res.json();
     showCard(data);
-
-    if (await data.data.length > 9) {
-      showMoreBtn.classList.remove('hidden');
-    }
-    else if (await data.data.length < 9) {
-      showMoreBtn.classList.add('hidden')
-    }
+    displayMoreBtn(true, data.data.length);
   })
 }
 
@@ -28,9 +23,17 @@ function loadingSpinner(isLoading) {
     loader.classList.add('hidden');
   }
 }
+function displayMoreBtn(notBlank, count) {
+  if (notBlank && count > 9) {
+    showMoreBtn.classList.remove('hidden');
+  }
+  else {
+    showMoreBtn.classList.add('hidden');
+  }
+}
 
 function showCard(data) {
-  data.data.slice(0, 3).forEach(phone => {
+  data.data.slice(0, 9).forEach(phone => {
     const card = document.createElement('div');
     card.classList = 'card rounded-xl bg-white shadow-xl mx-auto';
     card.innerHTML = `
@@ -46,7 +49,7 @@ function showCard(data) {
       </div>`;
     cardsContainer.appendChild(card);
   });
-  loadingSpinner(false);
+  displayMoreBtn(false);
 }
 
 loadData();
