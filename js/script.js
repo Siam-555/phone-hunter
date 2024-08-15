@@ -56,7 +56,7 @@ function showCard(data, allData) {
         <h2 class="card-title">${phone.phone_name}</h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div class="card-actions">
-          <button class="btn py-0 btn-primary">Show Details</button>
+          <button onclick="handleShowDetails('${phone.slug}')" class="btn py-0 btn-primary">Show Details</button>
         </div>
       </div>`;
     cardsContainer.appendChild(card);
@@ -70,6 +70,32 @@ showMoreBtn.addEventListener('click', () => {
   loadData(true);
 })
 
-function showDetails(id) {
-  return ``
+async function handleShowDetails(id) {
+  const phoneInfo = await (await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)).json();
+  showDetails(phoneInfo.data);
+}
+
+const showDetails = (phone) => {
+  console.log(phone);
+  phone_information.showModal();
+
+  const phoneContainer = document.getElementById('phone_information');
+  phoneContainer.innerHTML = `
+      <div class="modal-box py-8 bg-gray-200">
+        <img class="mx-auto mb-6" src="${phone.image}" />
+        <h3 id="phone-name" class="text-lg my-2 font-bold">${phone.name}</h3>
+        <div>
+        <p><span class="font-bold">Storage :</span> ${phone.mainFeatures.storage}</p>
+        <p><span class="font-bold">Display Size :</span> ${phone.mainFeatures.displaySize}</p>
+        <p><span class="font-bold">Chipset :</span> ${phone.mainFeatures.chipSet}</p>
+        <p><span class="font-bold">Memory :</span> ${phone.mainFeatures.memory}</p>
+        <p><span class="font-bold">Slug :</span> ${phone.slug}</p>
+        <p><span class="font-bold">Release Date :</span> ${phone.releaseDate}</p>
+        <p><span class="font-bold">Brand :</span> ${phone.brand}</p>
+        <p><span class="font-bold">GPS :</span> ${phone.others?.GPS}</p>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>`
 }
