@@ -1,18 +1,22 @@
 const cardsContainer = document.getElementById('phone-cards');
 const showMoreBtn = document.getElementById('show-more-btn');
 const loader = document.getElementById('loading-spinner');
+const searchBox = document.getElementById('search-box');
 
-function loadData() {
-  const searchBox = document.getElementById('search-box');
-  searchBox.addEventListener('keyup', async () => {
+function writeOnSearch() {
+  searchBox.addEventListener('keyup', () => {
+    loadData();
     loadingSpinner(true);
-    cardsContainer.innerHTML = '';
-    displayMoreBtn(false);
-    const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchBox.value}`);
-    const data = await res.json();
-    showCard(data);
-    displayMoreBtn(true, data.data.length);
   })
+}
+
+async function loadData(allData) {
+  cardsContainer.innerHTML = '';
+  displayMoreBtn(false);
+  const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchBox.value}`);
+  let data = await res.json();
+  showCard(data, allData);
+  displayMoreBtn(true, data.data.length);
 }
 
 function loadingSpinner(isLoading) {
@@ -32,8 +36,16 @@ function displayMoreBtn(notBlank, count) {
   }
 }
 
-function showCard(data) {
-  data.data.slice(0, 9).forEach(phone => {
+function showCard(data, allData) {
+  let dataOfPhones;
+  if (allData) {
+    dataOfPhones = data.data;
+  }
+  else {
+    dataOfPhones = data.data.slice(0, 9);
+  }
+
+  dataOfPhones.forEach(phone => {
     const card = document.createElement('div');
     card.classList = 'card rounded-xl bg-white shadow-xl mx-auto';
     card.innerHTML = `
@@ -52,4 +64,12 @@ function showCard(data) {
   displayMoreBtn(false);
 }
 
-loadData();
+writeOnSearch();
+
+showMoreBtn.addEventListener('click', () => {
+  loadData(true);
+})
+
+function showDetails(id) {
+  return ``
+}

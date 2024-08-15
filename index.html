@@ -7,20 +7,33 @@
   <title>Phone Hunter</title>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 min-h-screen text-black">
 
   <main class="container mx-auto">
     <!-- Search Field here -->
-    <input id="search-box" class="input relative left-1/2 -translate-x-1/2 w-1/2 text-center text-white bg-gray-600 input-bordered rounded-2xl my-4" placeholder="Search..." />
-    <span id="loading-spinner" class="loading loading-spinner absolute loading-lg top-1/2 -translate-y-1/2 hidden"></span>
+    <input id="search-box"
+      class="input relative left-1/2 -translate-x-1/2 w-1/2 text-center text-white bg-gray-600 input-bordered rounded-2xl my-4"
+      placeholder="Search..." />
+    <span id="loading-spinner"
+      class="loading loading-spinner absolute loading-lg top-1/2 -translate-y-1/2 hidden"></span>
 
     <div id="phone-cards" class="grid grid-cols-3 gap-4">
       <!-- Phone Data here -->
     </div>
-    <button id="show-more-btn" class="btn my-6 px-14 text-lg relative left-1/2 -translate-x-1/2 hidden btn-accent">Show more...</button>
+    <div class="text-center">
+      <button id="show-more-btn" class="my-6 px-14 text-lg hidden btn btn-accent">Show more...</button>
+    </div>
   </main>
+
+
+
 
   <script src="js/script.js"></script>
 </body>
